@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-denormalization">
+    <flow SubFlow="false" name="identifier-update-events-denormalizationFlow1" entity-id="9c0c5b6d-8eca-4537-838c-e6f0bc6165d9">
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="e92a201b-8afc-4cc8-82d8-08b8399e8521">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="80d937da-3efd-470f-aa55-889a478aa23d">
+                <properties>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
+                    <property name="path" value="identifierUpdateEventsDenormalizationQueue"/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="connector-ref" value=""/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description>Handles the denormalization for individual identifierUpdateEvent messages. Messages are destined for the SHR.</description>
+</mule-configuration>

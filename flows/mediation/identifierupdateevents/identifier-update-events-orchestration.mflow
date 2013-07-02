@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-orchestration">
+    <flow SubFlow="false" name="identifier-update-events-orchestrationFlow1" entity-id="34507b4b-1e88-4198-bbc1-8d82f76ba3d3">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="auxiliary;index" value="1"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="path" value="identifierUpdateEventsOrchestrationQueue"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                </properties>
+            </endpoint>
+            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/custom-transformer" entity-id="375f2c73-006b-4f34-80ee-481af95a84e6">
+                <properties>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="returnClass" value=""/>
+                    <property name="ignoreBadInput" value="false"/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
+                    <property name="class" value="org.jembi.rhea.transformers.IdentifierUpdateEventsXMLSplitter"/>
+                    <property name="mimeType" value=""/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern name="Collection Splitter" type="http://www.mulesoft.org/schema/mule/core/collection-splitter" entity-id="Collection Splitter#1">
+                <properties>
+                    <property name="enableCorrelation"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                </properties>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#2">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="path" value="identifierUpdateEventsDenormalizationQueue"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <description>Orchestration flow for splitting up an identifierUpdateEvents message from the CR into single event messages for SHR.</description>
+</mule-configuration>
