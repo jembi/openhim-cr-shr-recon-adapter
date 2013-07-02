@@ -40,6 +40,15 @@
                     <property name="auxiliary;index" value="2"/>
                 </properties>
             </endpoint>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="373a3b25-64a8-4db0-b4b8-1223795714dd">
+                <properties>
+                    <property name="message" value="Orchestrating identifierUpdateEvents message"/>
+                    <property name="category" value=""/>
+                    <property name="level" value="INFO"/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </pattern>
             <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/custom-transformer" entity-id="375f2c73-006b-4f34-80ee-481af95a84e6">
                 <properties>
                     <property name="auxiliary;erased;mimeType" value="true"/>
