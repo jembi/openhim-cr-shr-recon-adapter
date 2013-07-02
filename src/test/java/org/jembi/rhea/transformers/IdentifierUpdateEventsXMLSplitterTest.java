@@ -18,14 +18,12 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	
 	private MuleMessage msgMock;
 	private RestfulHttpRequest reqMock;
-	private String expectedResult;
 
 	@Before
 	public void setUp() throws Exception {
 		msgMock = mock(MuleMessage.class);
 		reqMock = mock(RestfulHttpRequest.class);
 		when(msgMock.getPayload()).thenReturn(reqMock);
-		expectedResult = Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents_Split.xml");
 	}
 
 	@After
@@ -39,6 +37,7 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	@Test
 	public void testTransformMessageMuleMessageString() throws TransformerException, IOException {
 		when(reqMock.getBody()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
+		String expectedResult = Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents_Split.xml");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		Object result = splitter.transformMessage(msgMock, null);
