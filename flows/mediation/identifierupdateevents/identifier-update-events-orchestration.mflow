@@ -14,31 +14,23 @@
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
                 <properties>
-                    <property name="exchange-pattern" value="one-way"/>
-                    <property name="exchange-pattern" value="one-way"/>
-                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
                     <property name="path" value="identifierUpdateEventsOrchestrationQueue"/>
+                    <property name="responseTransformer-refs" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="connector-ref" value=""/>
                     <property name="auxiliary;index" value="2"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="businessEventsLabel"/>
-                    <property name="tracking:enable-default-events"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="address"/>
-                    <property name="responseTimeout"/>
-                    <property name="encoding"/>
-                    <property name="disableTransportTransformer"/>
-                    <property name="mimeType"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="connector-ref"/>
-                    <property name="ref"/>
-                    <property name="transformer-refs"/>
-                    <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="auxiliary;index" value="2"/>
-                    <property name="auxiliary;index" value="2"/>
+                    <property name="updated"/>
                 </properties>
+                <description></description>
             </endpoint>
             <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="373a3b25-64a8-4db0-b4b8-1223795714dd">
                 <properties>
@@ -49,7 +41,7 @@
                 </properties>
                 <description></description>
             </pattern>
-            <pattern name="Java" type="http://www.mulesoft.org/schema/mule/core/custom-transformer" entity-id="375f2c73-006b-4f34-80ee-481af95a84e6">
+            <pattern name="Split identifierUpdateEvents Message" type="http://www.mulesoft.org/schema/mule/core/custom-transformer" entity-id="375f2c73-006b-4f34-80ee-481af95a84e6">
                 <properties>
                     <property name="auxiliary;erased;mimeType" value="true"/>
                     <property name="returnClass" value=""/>
@@ -76,32 +68,25 @@
             </pattern>
             <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#2">
                 <properties>
-                    <property name="exchange-pattern" value="one-way"/>
-                    <property name="exchange-pattern" value="one-way"/>
-                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
                     <property name="path" value="identifierUpdateEventsDenormalizationQueue"/>
+                    <property name="responseTransformer-refs" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="connector-ref" value=""/>
                     <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="businessEventsLabel"/>
-                    <property name="tracking:enable-default-events"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="address"/>
-                    <property name="responseTimeout"/>
-                    <property name="encoding"/>
-                    <property name="disableTransportTransformer"/>
-                    <property name="mimeType"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="connector-ref"/>
-                    <property name="ref"/>
-                    <property name="transformer-refs"/>
-                    <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
+                    <property name="updated"/>
                 </properties>
+                <description></description>
             </endpoint>
+            <pattern name="Collection Aggregator" type="http://www.mulesoft.org/schema/mule/core/collection-aggregator" entity-id="cb6f7b9d-4236-40fb-aadb-391fe8bd4088"/>
         </lane>
     </flow>
     <description>Orchestration flow for splitting up an identifierUpdateEvents message from the CR into single event messages for SHR.</description>
