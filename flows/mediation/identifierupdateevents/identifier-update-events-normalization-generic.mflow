@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-normalization-generic">
+    <flow SubFlow="false" name="identifier-update-events-normalization-genericFlow1" entity-id="49929aa9-902a-436b-ab82-fee92292d03a">
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="a7373193-13df-49e9-aaf8-2682d8efc020">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="cf48afe5-1409-4150-b339-f801ddca9820">
+                <properties>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
+                    <property name="path" value="identifierUpdateEvents-Generic-NormalizationQueue"/>
+                    <property name="responseTransformer-refs" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="connector-ref" value=""/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="2241daeb-dc81-4533-aa9b-71b5ea937a46">
+                <properties>
+                    <property name="message" value="Normalizing identifierUpdateEvents message"/>
+                    <property name="category" value=""/>
+                    <property name="level" value="INFO"/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="3c302203-4072-4037-a0fe-e49ce2ee0849">
+                <properties>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="ref" value=""/>
+                    <property name="transformer-refs" value=""/>
+                    <property name="address" value=""/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
+                    <property name="path" value="identifierUpdateEventsOrchestrationQueue"/>
+                    <property name="responseTransformer-refs" value=""/>
+                    <property name="disableTransportTransformer" value="false"/>
+                    <property name="mimeType" value=""/>
+                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="connector-ref" value=""/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </endpoint>
+        </lane>
+    </flow>
+    <description>Generic normalization flow for identifierUpdateEvents.</description>
+</mule-configuration>
