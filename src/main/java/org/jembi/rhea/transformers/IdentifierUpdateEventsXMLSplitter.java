@@ -21,7 +21,6 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jembi.rhea.RestfulHttpRequest;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
@@ -45,11 +44,11 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 	@Override
 	public Object transformMessage(MuleMessage msg, String outputEncoding)
 			throws TransformerException {
-		RestfulHttpRequest request = (RestfulHttpRequest) msg.getPayload();
-		String updates = request.getBody();
 		List<String> result = new ArrayList<String>();
 		
 		try {
+			String updates = msg.getPayloadAsString();
+			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(updates)));
 			XPath xpath = XPathFactory.newInstance().newXPath();
@@ -80,6 +79,8 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 		} catch (TransformerFactoryConfigurationError e) {
 			throw new TransformerException(this, e);
 		} catch (javax.xml.transform.TransformerException e) {
+			throw new TransformerException(this, e);
+		} catch (Exception e) {
 			throw new TransformerException(this, e);
 		}
 		

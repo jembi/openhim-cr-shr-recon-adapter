@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="openempi-identifier-update-events">
+    <global-element name="Property Placeholder" type="http://www.springframework.org/schema/context/property-placeholder" entity-id="Property Placeholder#1">
+        <properties>
+            <property name="location" value="classpath:HIM-core.properties, classpath:HIM-core-override.properties"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="auxiliary;index" value="1"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="495b12d9-e9a4-4253-afc9-f4c3e151033c">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property name="auxiliary;index" value="2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="2"/>
+            <property name="auxiliary;index" value="2"/>
+            <property name="auxiliary;index" value="2"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="Quartz" type="http://www.mulesoft.org/schema/mule/quartz/endpoint" entity-id="Quartz#1">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="jobName" value="OpenEMPI-poller"/>
+                    <property name="cronExpression"/>
+                    <property name="repeatInterval" value="${cr.pollForIdentifierUpdates.period}"/>
+                    <property name="repeatCount"/>
+                    <property name="startDelay" value="${cr.pollForIdentifierUpdates.startDelay}"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/quartz/event-generator-job;0">
+                        <property name="groupName" value="Poll-OpenEMPI"/>
+                        <property name="jobGroupName" value="Poll-OpenEMPI"/>
+                        <property name="auxiliary;wrapIn" value="4"/>
+                        <property name="auxiliary;index" value="4"/>
+                    </property-collection>
+                </properties>
+            </endpoint>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
+                <properties>
+                    <property name="message" value="Running scheduled job: OpenEMPI identifierUpdateEvents poll"/>
+                    <property name="level" value="INFO"/>
+                    <property name="category"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
+                </properties>
+            </pattern>
+            <splitter index="6" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
+                <properties>
+                    <property-collection name="57bd5f0b-f67e-45f6-9014-019b8137e7e3">
+                        <property name="choice.expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="00082bda-b2c9-4fff-8e14-10c21810ff18">
+                        <property name="choice.otherwise" value="true"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                </properties>
+                <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="57bd5f0b-f67e-45f6-9014-019b8137e7e3">
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Get last poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#1">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="request-response"/>
+<property name="auxiliary;index" value="9"/>
+<property name="queryKey" value="select_last_update"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="9"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="9"/>
+<property name="queryTimeout"/>
+<property name="pollingFrequency"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="connector-ref" value="JDBCConnector"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+    <property name="value" value="select value from property where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
+    <property name="auxiliary;wrapIn" value="10"/>
+    <property name="auxiliary;index" value="10"/>
+    <property name="key" value="select_last_update"/>
+</property-collection>
+                            </properties>
+                        </endpoint>
+                        <pattern name="Format result, default if null" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#1">
+                            <properties>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
+    <property name="engine" value="Groovy"/>
+    <property name="auxiliary;wrapIn" value="12"/>
+    <property name="auxiliary;index" value="12"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
+    <property name="engine" value="Groovy"/>
+    <property name="auxiliary;wrapIn" value="12"/>
+    <property name="auxiliary;index" value="12"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                        <pattern name="Message Properties" type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" entity-id="Message Properties#1">
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property name="auxiliary;index" value="14"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property name="overwrite"/>
+<property name="scope"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="14"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
+    <property name="value" value="${openempi.sessionkey}"/>
+    <property name="auxiliary;wrapIn" value="15"/>
+    <property name="auxiliary;index" value="15"/>
+    <property name="key" value="OPENEMPI_SESSION_KEY"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="request-response"/>
+<property name="auxiliary;index" value="16"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+<property name="auxiliary;index" value="16"/>
+<property name="httpLabel"/>
+<property name="host" value="${cr.host}"/>
+<property name="port" value="${cr.port}"/>
+<property name="path" value="openempi-admin/openempi-ws-rest/person-query-resource/retrieveNotificationsByDate?date=#[message:payload]&amp;removeRecords=false"/>
+<property name="method"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="16"/>
+<property name="address"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType" value="application/xml"/>
+<property name="responseTimeout"/>
+<property name="followRedirects"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+<property name="user"/>
+<property name="password"/>
+<property name="auxiliary;index" value="16"/>
+<property name="contentType"/>
+<property name="keep-alive"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="16"/>
+                            </properties>
+                        </endpoint>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Send OpenEMPI result to persistence queue" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="request-response"/>
+<property name="auxiliary;index" value="17"/>
+<property name="path" value="messagePersistanceQueue"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="17"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+                            </properties>
+                        </endpoint>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Update poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#2">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="one-way"/>
+<property name="auxiliary;index" value="18"/>
+<property name="queryKey" value="update_last_update"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="18"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="18"/>
+<property name="queryTimeout"/>
+<property name="pollingFrequency"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="connector-ref" value="JDBCConnector"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property name="auxiliary;index" value="18"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+    <property name="value" value="update property set value = #[header:session:iueDateNow] where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
+    <property name="auxiliary;wrapIn" value="19"/>
+    <property name="auxiliary;index" value="19"/>
+    <property name="key" value="update_last_update"/>
+</property-collection>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                    <lane hadOnlyOneElement="false" index="21" isChoiceOtherwiseLane="true" entity-id="00082bda-b2c9-4fff-8e14-10c21810ff18">
+                        <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
+                            <properties>
+<property name="message" value="OpenEMPI identifierUpdateEvents polling disabled"/>
+<property name="level" value="INFO"/>
+<property name="category"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+        </lane>
+    </flow>
+    <description>A polling task that checks for identifierUpdateEvents from OpenEMPI.</description>
+</mule-configuration>

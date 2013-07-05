@@ -17,13 +17,10 @@ import org.mule.api.transformer.TransformerException;
 public class IdentifierUpdateEventsXMLSplitterTest {
 	
 	private MuleMessage msgMock;
-	private RestfulHttpRequest reqMock;
 
 	@Before
 	public void setUp() throws Exception {
 		msgMock = mock(MuleMessage.class);
-		reqMock = mock(RestfulHttpRequest.class);
-		when(msgMock.getPayload()).thenReturn(reqMock);
 	}
 
 	@After
@@ -35,8 +32,8 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testTransformMessageMuleMessageString() throws TransformerException, IOException {
-		when(reqMock.getBody()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
+	public void testTransformMessageMuleMessageString() throws Exception {
+		when(msgMock.getPayloadAsString()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
 		String expectedResult = Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents_Split.xml");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
@@ -56,8 +53,8 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	public void testTransformMessageMuleMessageString_NoEvents() throws TransformerException {
-		when(reqMock.getBody()).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?><identifierUpdateEvents></identifierUpdateEvents>");
+	public void testTransformMessageMuleMessageString_NoEvents() throws Exception {
+		when(msgMock.getPayloadAsString()).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?><identifierUpdateEvents></identifierUpdateEvents>");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		Object result = splitter.transformMessage(msgMock, null);
@@ -70,8 +67,8 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	 * Transformer should throw an exception if the message is not a valid xml document
 	 */
 	@Test
-	public void testTransformMessageMuleMessageString_Invalid() {
-		when(reqMock.getBody()).thenReturn("Not a valid XML document!");
+	public void testTransformMessageMuleMessageString_Invalid() throws Exception {
+		when(msgMock.getPayloadAsString()).thenReturn("Not a valid XML document!");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		try {
