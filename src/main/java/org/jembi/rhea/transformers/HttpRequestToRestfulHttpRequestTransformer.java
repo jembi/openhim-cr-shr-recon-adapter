@@ -3,35 +3,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.jembi.rhea.transformers;
 
-import org.jembi.rhea.RestfulHttpRequest;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
-import org.mule.transformer.AbstractMessageTransformer;
 
 public class HttpRequestToRestfulHttpRequestTransformer extends
-		AbstractMessageTransformer {
+		RestfulHttpRequestTransformer {
 
 	@Override
 	public Object transformMessage(MuleMessage msg, String enc) throws TransformerException {
-		
-		RestfulHttpRequest restMsg = new RestfulHttpRequest();
-		
-		String url = (String) msg.getInboundProperty("http.request");
-		restMsg.setPath(url);
-		String httpMethod = (String) msg.getInboundProperty("http.method");
-		restMsg.setHttpMethod(httpMethod);
-		
-		try {
-			String body = msg.getPayloadAsString();
-			if (body != url) {
-				restMsg.setBody(body);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return restMsg;
+		msg.setInvocationProperty("rest.request", msg.getInboundProperty("http.request"));
+		msg.setInvocationProperty("rest.request", msg.getInboundProperty("http.method"));
+		return super.transformMessage(msg, enc);
 	}
 
 }
