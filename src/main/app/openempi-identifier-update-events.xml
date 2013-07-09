@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:context="http://www.springframework.org/schema/context" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:context="http://www.springframework.org/schema/context" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd 
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
 http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd ">
 	<context:property-placeholder xmlns:context="http://www.springframework.org/schema/context" location="classpath:HIM-core.properties, classpath:HIM-core-override.properties"></context:property-placeholder>
     <flow name="openempi-identifier-update-eventsFlow1" doc:name="openempi-identifier-update-eventsFlow1">
         <quartz:inbound-endpoint jobName="OpenEMPI-poller" repeatInterval="${cr.pollForIdentifierUpdates.period}" responseTimeout="10000" doc:name="Quartz" startDelay="${cr.pollForIdentifierUpdates.startDelay}">
@@ -33,8 +34,14 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 					<http:outbound-endpoint exchange-pattern="request-response"
 						host="${cr.host}" port="${cr.port}"
 						path="openempi-admin/openempi-ws-rest/person-query-resource/retrieveNotificationsByDate?date=#[message:payload]&amp;removeRecords=false"
-						mimeType="application/xml" doc:name="HTTP" />
-                    <vm:outbound-endpoint exchange-pattern="request-response" doc:name="Send OpenEMPI result to persistence queue" path="messagePersistanceQueue"/>
+						mimeType="application/xml" doc:name="Fetch OpenEMPI identifier update events" method="GET"/>
+                    <message-properties-transformer scope="invocation" doc:name="Message Properties" overwrite="true">
+                        <add-message-property key="rest.request" value="ws/rest/v1/patient/identifier"/>
+                        <add-message-property key="rest.method" value="POST"/>
+                    </message-properties-transformer>
+			        <custom-transformer class="org.jembi.rhea.transformers.RestfulHttpRequestTransformer" doc:name="RestfulHttpRequestTransformer"/>
+			        <logger message="Structured message: #[groovy: message.payload.toString();] Full Message: #[groovy: message.toString();]" level="INFO" doc:name="Log Structured Message"/>
+			        <vm:outbound-endpoint exchange-pattern="request-response" path="messagePersistanceQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Queue message"/>
                     <jdbc:outbound-endpoint exchange-pattern="one-way" queryKey="update_last_update" connector-ref="JDBCConnector" doc:name="Update poll timestamp">
                         <jdbc:query key="update_last_update" value="update property set value = #[header:session:iueDateNow] where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
                     </jdbc:outbound-endpoint>

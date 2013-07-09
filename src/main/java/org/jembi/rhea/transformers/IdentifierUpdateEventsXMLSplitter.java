@@ -21,6 +21,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jembi.rhea.RestfulHttpRequest;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
@@ -47,7 +48,7 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 		List<String> result = new ArrayList<String>();
 		
 		try {
-			String updates = msg.getPayloadAsString();
+			String updates = ((RestfulHttpRequest)msg.getPayload()).getBody();
 			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(updates)));
