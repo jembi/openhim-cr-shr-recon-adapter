@@ -8,7 +8,7 @@
             <property name="auxiliary;index" value="1"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="713ba077-49d2-4a7f-b5ea-f6869dc28158">
+    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="492853a6-12fe-4314-b2ca-226725d50b8e">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -66,53 +66,20 @@
             </pattern>
             <splitter index="6" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
                 <properties>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property name=";INDEX" value="6"/>
-                    <property-collection name="1e333f2b-08cf-4684-b70b-ed8e5e392aef">
+                    <property-collection name="33659b1b-032b-4de3-a9c5-c18465112d22">
                         <property name="choice.otherwise" value="true"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="2194f575-7719-462f-a93a-f266b24ab557">
+                    <property-collection name="95db485b-9475-461a-bfab-eaf624bd0ec9">
                         <property name="choice.expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
                         </property-collection>
                     </property-collection>
                 </properties>
-                <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2">
-                    <properties>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property name=";INDEX" value="6"/>
-                        <property-collection name="1e333f2b-08cf-4684-b70b-ed8e5e392aef">
-                            <property name="choice.otherwise" value="true"/>
-                            <property-collection name="choice.attributes"/>
-                        </property-collection>
-                        <property-collection name="2194f575-7719-462f-a93a-f266b24ab557">
-                            <property name="choice.expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
-                            <property-collection name="choice.attributes">
-<property name="expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
-                            </property-collection>
-                        </property-collection>
-                    </properties>
-                </pattern>
+                <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#1">
-                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="2194f575-7719-462f-a93a-f266b24ab557">
+                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="95db485b-9475-461a-bfab-eaf624bd0ec9">
                         <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Get last poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#1">
                             <properties>
 <property name="exchange-pattern" value="one-way"/>
@@ -150,7 +117,6 @@
     <property name="auxiliary;wrapIn" value="10"/>
     <property name="auxiliary;index" value="10"/>
     <property name="key" value="select_last_update"/>
-    <property name="isProcessed$$$$" value="true"/>
 </property-collection>
                             </properties>
                         </endpoint>
@@ -162,19 +128,17 @@
 <property name="auxiliary;index" value="11"/>
 <property name="auxiliary;index" value="11"/>
 <property name="auxiliary;index" value="11"/>
-<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
-    <property name="engine" value="Groovy"/>
-    <property name="auxiliary;wrapIn" value="12"/>
-    <property name="auxiliary;index" value="12"/>
-    <property name="isProcessed$$$$" value="true"/>
-</property-collection>
 <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
     <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
     <property name="engine" value="Groovy"/>
     <property name="auxiliary;wrapIn" value="12"/>
     <property name="auxiliary;index" value="12"/>
-    <property name="isProcessed$$$$" value="true"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
+    <property name="engine" value="Groovy"/>
+    <property name="auxiliary;wrapIn" value="12"/>
+    <property name="auxiliary;index" value="12"/>
 </property-collection>
                             </properties>
                         </pattern>
@@ -200,7 +164,6 @@
     <property name="auxiliary;wrapIn" value="15"/>
     <property name="auxiliary;index" value="15"/>
     <property name="key" value="OPENEMPI_SESSION_KEY"/>
-    <property name="isProcessed$$$$" value="true"/>
 </property-collection>
                             </properties>
                         </pattern>
@@ -248,136 +211,138 @@
                         </endpoint>
                         <pattern name="Message Properties" type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" entity-id="Message Properties#2">
                             <properties>
-<property name="auxiliary;erased;mimeType" value="true"/>
-<property name="returnClass" value=""/>
-<property name="ignoreBadInput" value="false"/>
-<property name="scope" value="invocation"/>
-<property name="auxiliary;erased;encoding" value="true"/>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property name="auxiliary;index" value="17"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
 <property name="overwrite" value="true"/>
-<property name="encoding" value=""/>
-<property name="mimeType" value=""/>
-<property name="auxiliary;index" value="18"/>
-<property name="updated"/>
+<property name="scope" value="invocation"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
+<property name="auxiliary;index" value="17"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
     <property name="value" value="ws/rest/v1/patient/identifier"/>
-    <property name="auxiliary;wrapIn" value="19"/>
-    <property name="auxiliary;index" value="19"/>
+    <property name="auxiliary;wrapIn" value="18"/>
+    <property name="auxiliary;index" value="18"/>
     <property name="key" value="rest.request"/>
-    <property name="isProcessed$$$$" value="true"/>
 </property-collection>
 <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;1">
-    <property name="value" value="POST"/>
-    <property name="auxiliary;wrapIn" value="20"/>
-    <property name="auxiliary;index" value="20"/>
+    <property name="value" value="PUT"/>
+    <property name="auxiliary;wrapIn" value="19"/>
+    <property name="auxiliary;index" value="19"/>
     <property name="key" value="rest.method"/>
-    <property name="isProcessed$$$$" value="true"/>
 </property-collection>
                             </properties>
-                            <description></description>
                         </pattern>
                         <pattern name="RestfulHttpRequestTransformer" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#1">
                             <properties>
-<property name="auxiliary;erased;mimeType" value="true"/>
-<property name="returnClass" value=""/>
-<property name="ignoreBadInput" value="false"/>
-<property name="auxiliary;erased;encoding" value="true"/>
-<property name="encoding" value=""/>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property name="auxiliary;index" value="20"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="20"/>
+<property name="auxiliary;index" value="20"/>
 <property name="class" value="org.jembi.rhea.transformers.RestfulHttpRequestTransformer"/>
-<property name="mimeType" value=""/>
-<property name="auxiliary;index" value="21"/>
-<property name="updated"/>
+<property name="auxiliary;index" value="20"/>
+<property name="auxiliary;index" value="20"/>
+<property name="auxiliary;index" value="20"/>
                             </properties>
-                            <description></description>
                         </pattern>
-                        <pattern name="Log Structured Message" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
+                        <pattern name="Log Structured Message" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
                             <properties>
 <property name="message" value="Structured message: #[groovy: message.payload.toString();] Full Message: #[groovy: message.toString();]"/>
 <property name="level" value="INFO"/>
 <property name="category"/>
-<property name="auxiliary;index" value="22"/>
-<property name="auxiliary;index" value="22"/>
-<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="21"/>
+<property name="auxiliary;index" value="21"/>
+<property name="auxiliary;index" value="21"/>
                             </properties>
                         </pattern>
                         <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Queue message" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
                             <properties>
 <property name="exchange-pattern" value="one-way"/>
 <property name="exchange-pattern" value="request-response"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="22"/>
 <property name="path" value="messagePersistanceQueue"/>
-<property name="auxiliary;index" value="23"/>
-<property name="auxiliary;index" value="23"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
 <property name="businessEventsLabel"/>
 <property name="tracking:enable-default-events"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="22"/>
 <property name="address"/>
 <property name="responseTimeout" value="10000"/>
 <property name="encoding"/>
 <property name="disableTransportTransformer"/>
 <property name="mimeType" value="text/plain"/>
-<property name="auxiliary;index" value="23"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
 <property name="connector-ref"/>
 <property name="ref"/>
 <property name="transformer-refs"/>
 <property name="responseTransformer-refs"/>
-<property name="auxiliary;index" value="23"/>
-<property name="auxiliary;index" value="23"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
+<property name="auxiliary;index" value="22"/>
                             </properties>
                         </endpoint>
                         <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Update poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#2">
                             <properties>
 <property name="exchange-pattern" value="one-way"/>
 <property name="exchange-pattern" value="one-way"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
 <property name="queryKey" value="update_last_update"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
 <property name="businessEventsLabel"/>
 <property name="tracking:enable-default-events"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
 <property name="address"/>
 <property name="responseTimeout"/>
 <property name="encoding"/>
 <property name="disableTransportTransformer"/>
 <property name="mimeType"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
 <property name="queryTimeout"/>
 <property name="pollingFrequency"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
 <property name="connector-ref" value="JDBCConnector"/>
 <property name="ref"/>
 <property name="transformer-refs"/>
 <property name="responseTransformer-refs"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
     <property name="value" value="update property set value = #[header:session:iueDateNow] where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
-    <property name="auxiliary;wrapIn" value="25"/>
-    <property name="auxiliary;index" value="25"/>
+    <property name="auxiliary;wrapIn" value="24"/>
+    <property name="auxiliary;index" value="24"/>
     <property name="key" value="update_last_update"/>
-    <property name="isProcessed$$$$" value="true"/>
 </property-collection>
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="27" isChoiceOtherwiseLane="true" entity-id="1e333f2b-08cf-4684-b70b-ed8e5e392aef">
-                        <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#4">
+                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="true" entity-id="33659b1b-032b-4de3-a9c5-c18465112d22">
+                        <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
                             <properties>
 <property name="message" value="OpenEMPI identifierUpdateEvents polling disabled"/>
 <property name="level" value="INFO"/>
 <property name="category"/>
-<property name="auxiliary;index" value="28"/>
-<property name="auxiliary;index" value="28"/>
-<property name="auxiliary;index" value="28"/>
+<property name="auxiliary;index" value="27"/>
+<property name="auxiliary;index" value="27"/>
+<property name="auxiliary;index" value="27"/>
                             </properties>
                         </pattern>
                     </lane>

@@ -37,7 +37,7 @@ http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/ht
 						mimeType="application/xml" doc:name="Fetch OpenEMPI identifier update events" method="GET"/>
                     <message-properties-transformer scope="invocation" doc:name="Message Properties" overwrite="true">
                         <add-message-property key="rest.request" value="ws/rest/v1/patient/identifier"/>
-                        <add-message-property key="rest.method" value="POST"/>
+                        <add-message-property key="rest.method" value="PUT"/>
                     </message-properties-transformer>
 			        <custom-transformer class="org.jembi.rhea.transformers.RestfulHttpRequestTransformer" doc:name="RestfulHttpRequestTransformer"/>
 			        <logger message="Structured message: #[groovy: message.payload.toString();] Full Message: #[groovy: message.toString();]" level="INFO" doc:name="Log Structured Message"/>

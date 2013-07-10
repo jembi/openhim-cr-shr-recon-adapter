@@ -8,7 +8,7 @@
             <property name="auxiliary;index" value="1"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="identifier-update-events-denormalizationFlow1" entity-id="9e3e8f2b-059b-4b67-9518-a1579b67f3f9">
+    <flow SubFlow="false" name="identifier-update-events-denormalizationFlow1" entity-id="d8bc2902-68a7-4edd-972f-8126171ea848">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -60,44 +60,45 @@
             </pattern>
             <pattern name="Off-ramp Transformer" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#1">
                 <properties>
-                    <property name="auxiliary;erased;mimeType" value="true"/>
-                    <property name="returnClass" value=""/>
-                    <property name="ignoreBadInput" value="false"/>
-                    <property name="auxiliary;erased;encoding" value="true"/>
-                    <property name="encoding" value=""/>
-                    <property name="class" value="org.jembi.heal.DoNothingTransformer"/>
-                    <property name="mimeType" value=""/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
                     <property name="auxiliary;index" value="5"/>
-                    <property name="updated"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="class" value="org.jembi.heal.DoNothingTransformer"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
                 </properties>
-                <description></description>
             </pattern>
-            <pattern name="Add basic auth" type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" entity-id="Message Properties#2">
+            <pattern name="Add basic auth" type="http://www.mulesoft.org/schema/mule/core/message-properties-transformer" entity-id="Message Properties#1">
                 <properties>
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
-                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="6"/>
                     <property name="mimeType"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
                     <property name="overwrite"/>
                     <property name="scope"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
-                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/core/add-message-property;0">
                         <property name="value" value="${shr.auth}"/>
-                        <property name="auxiliary;wrapIn" value="9"/>
-                        <property name="auxiliary;index" value="9"/>
+                        <property name="auxiliary;wrapIn" value="7"/>
+                        <property name="auxiliary;index" value="7"/>
                         <property name="key" value="Authorization"/>
                     </property-collection>
                 </properties>
             </pattern>
-            <response index="11" entity-id="response#1">
+            <response index="8" entity-id="response#1">
                 <compartment entity-id="compartment#1">
                     <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
                         <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
@@ -105,9 +106,9 @@
 <property name="message" value="Recieved response from OpenMRS SHR: #[groovy: message.toString();]]"/>
 <property name="level" value="INFO"/>
 <property name="category"/>
-<property name="auxiliary;index" value="12"/>
-<property name="auxiliary;index" value="12"/>
-<property name="auxiliary;index" value="12"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
+<property name="auxiliary;index" value="9"/>
                             </properties>
                         </pattern>
                         <pattern name="HttpResponseToRestfulHttpResponseTransformer" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#2">
@@ -115,14 +116,14 @@
 <property name="returnClass"/>
 <property name="ignoreBadInput"/>
 <property name="encoding"/>
-<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="10"/>
 <property name="mimeType"/>
-<property name="auxiliary;index" value="13"/>
-<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="10"/>
+<property name="auxiliary;index" value="10"/>
 <property name="class" value="org.jembi.rhea.transformers.HttpResponseToRestfulHttpResponseTransformer"/>
-<property name="auxiliary;index" value="13"/>
-<property name="auxiliary;index" value="13"/>
-<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="10"/>
+<property name="auxiliary;index" value="10"/>
+<property name="auxiliary;index" value="10"/>
                             </properties>
                         </pattern>
                         <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
@@ -130,9 +131,9 @@
 <property name="message" value="Response normalization"/>
 <property name="level" value="INFO"/>
 <property name="category"/>
-<property name="auxiliary;index" value="14"/>
-<property name="auxiliary;index" value="14"/>
-<property name="auxiliary;index" value="14"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
+<property name="auxiliary;index" value="11"/>
                             </properties>
                         </pattern>
                         <pattern name="On-ramp Transformer" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#3">
@@ -140,14 +141,14 @@
 <property name="returnClass"/>
 <property name="ignoreBadInput"/>
 <property name="encoding"/>
-<property name="auxiliary;index" value="15"/>
+<property name="auxiliary;index" value="12"/>
 <property name="mimeType"/>
-<property name="auxiliary;index" value="15"/>
-<property name="auxiliary;index" value="15"/>
+<property name="auxiliary;index" value="12"/>
+<property name="auxiliary;index" value="12"/>
 <property name="class" value="org.jembi.heal.DoNothingTransformer"/>
-<property name="auxiliary;index" value="15"/>
-<property name="auxiliary;index" value="15"/>
-<property name="auxiliary;index" value="15"/>
+<property name="auxiliary;index" value="12"/>
+<property name="auxiliary;index" value="12"/>
+<property name="auxiliary;index" value="12"/>
                             </properties>
                         </pattern>
                         <pattern name="Translation Transformer" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#4">
@@ -155,14 +156,14 @@
 <property name="returnClass"/>
 <property name="ignoreBadInput"/>
 <property name="encoding"/>
-<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="13"/>
 <property name="mimeType"/>
-<property name="auxiliary;index" value="16"/>
-<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="13"/>
 <property name="class" value="org.jembi.heal.DoNothingTransformer"/>
-<property name="auxiliary;index" value="16"/>
-<property name="auxiliary;index" value="16"/>
-<property name="auxiliary;index" value="16"/>
+<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="13"/>
+<property name="auxiliary;index" value="13"/>
                             </properties>
                         </pattern>
                     </lane>
@@ -188,12 +189,12 @@
                     <property name="path" value="openmrs/ws/rest/RHEA/patient/identifier"/>
                     <property name="encoding" value=""/>
                     <property name="responseTransformer-refs" value=""/>
-                    <property name="method" value="POST"/>
+                    <property name="method" value="PUT"/>
                     <property name="user" value=""/>
                     <property name="mimeType" value=""/>
                     <property name="responseTimeout" value="120000"/>
                     <property name="connector-ref" value=""/>
-                    <property name="auxiliary;index" value="17"/>
+                    <property name="auxiliary;index" value="14"/>
                     <property name="updated"/>
                 </properties>
                 <description></description>

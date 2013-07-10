@@ -53,7 +53,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
                     <vm:outbound-endpoint exchange-pattern="request-response" path="getEncounter-Generic-NormalizationQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Send to getEncounter-Generic-NormalizationQueue"/>
                 </processor-chain>
             </when>
-            <when expression="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('POST')" evaluator="groovy">
+            <when expression="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('PUT')" evaluator="groovy">
                 <processor-chain>
                     <logger message="Transaction type: identifier update" level="INFO" doc:name="Log identifier update"/>
                     <vm:outbound-endpoint exchange-pattern="request-response" path="identifierUpdateEvents-Generic-NormalizationQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Send to identifierUpdateEvents-Generic-NormalizationQueue"/>
