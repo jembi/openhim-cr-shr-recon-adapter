@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-orchestration">
-    <flow SubFlow="false" name="identifier-update-events-orchestrationFlow1" entity-id="34507b4b-1e88-4198-bbc1-8d82f76ba3d3">
+    <flow SubFlow="false" name="identifier-update-events-orchestrationFlow1" entity-id="a379a9a4-7180-4aaa-8278-439cdc3ab40b">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -14,79 +14,336 @@
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
                 <properties>
-                    <property name="auxiliary;erased;mimeType" value="true"/>
-                    <property name="ref" value=""/>
-                    <property name="transformer-refs" value=""/>
-                    <property name="address" value=""/>
-                    <property name="auxiliary;erased;encoding" value="true"/>
-                    <property name="encoding" value=""/>
-                    <property name="path" value="identifierUpdateEventsOrchestrationQueue"/>
-                    <property name="responseTransformer-refs" value=""/>
-                    <property name="disableTransportTransformer" value="false"/>
-                    <property name="mimeType" value=""/>
-                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
                     <property name="exchange-pattern" value="request-response"/>
-                    <property name="connector-ref" value=""/>
                     <property name="auxiliary;index" value="2"/>
-                    <property name="updated"/>
+                    <property name="path" value="identifierUpdateEventsOrchestrationQueue"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
+                    <property name="auxiliary;index" value="2"/>
                 </properties>
-                <description></description>
             </endpoint>
-            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="373a3b25-64a8-4db0-b4b8-1223795714dd">
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
                 <properties>
                     <property name="message" value="Orchestrating identifierUpdateEvents message"/>
-                    <property name="category" value=""/>
                     <property name="level" value="INFO"/>
-                    <property name="updated"/>
+                    <property name="category"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="3"/>
                 </properties>
-                <description></description>
             </pattern>
-            <pattern name="Split identifierUpdateEvents Message" type="http://www.mulesoft.org/schema/mule/core/custom-transformer" entity-id="375f2c73-006b-4f34-80ee-481af95a84e6">
+            <pattern name="Split identifierUpdateEvents Message" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#1">
                 <properties>
-                    <property name="auxiliary;erased;mimeType" value="true"/>
-                    <property name="returnClass" value=""/>
-                    <property name="ignoreBadInput" value="false"/>
-                    <property name="auxiliary;erased;encoding" value="true"/>
-                    <property name="encoding" value=""/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
                     <property name="class" value="org.jembi.rhea.transformers.IdentifierUpdateEventsXMLSplitter"/>
-                    <property name="mimeType" value=""/>
-                    <property name="updated"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="4"/>
                 </properties>
-                <description></description>
             </pattern>
             <pattern name="Collection Splitter" type="http://www.mulesoft.org/schema/mule/core/collection-splitter" entity-id="Collection Splitter#1">
                 <properties>
                     <property name="enableCorrelation"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="5"/>
                 </properties>
             </pattern>
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Persist raw message" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#1">
+                <properties>
+                    <property name="exchange-pattern" value="one-way"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="queryKey" value="insertSplitMsg"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="address"/>
+                    <property name="responseTimeout" value="10000"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="queryTimeout" value="-1"/>
+                    <property name="pollingFrequency"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="connector-ref" value="JDBCConnector"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="6"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+                        <property name="value" value="insert into transaction_log (uuid, path, request_params, body, http_method, recieved_timestamp, authorized_username, status) values (#[groovy: return message.payload.getUuid();], #[groovy: return message.payload.getPath();], #[groovy: return message.payload.getRequestParamsAsString();], #[groovy: return message.payload.getBody();], #[groovy: return message.payload.getHttpMethod();], now(), '', 1);"/>
+                        <property name="auxiliary;wrapIn" value="7"/>
+                        <property name="auxiliary;index" value="7"/>
+                        <property name="key" value="insertSplitMsg"/>
+                    </property-collection>
+                </properties>
+            </endpoint>
             <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#2">
                 <properties>
-                    <property name="auxiliary;erased;mimeType" value="true"/>
-                    <property name="ref" value=""/>
-                    <property name="transformer-refs" value=""/>
-                    <property name="address" value=""/>
-                    <property name="auxiliary;erased;encoding" value="true"/>
-                    <property name="encoding" value=""/>
-                    <property name="path" value="identifierUpdateEventsDenormalizationQueue"/>
-                    <property name="responseTransformer-refs" value=""/>
-                    <property name="disableTransportTransformer" value="false"/>
-                    <property name="mimeType" value=""/>
-                    <property name="responseTimeout" value=""/>
+                    <property name="exchange-pattern" value="one-way"/>
                     <property name="exchange-pattern" value="request-response"/>
-                    <property name="connector-ref" value=""/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="updated"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="path" value="identifierUpdateEventsDenormalizationQueue"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="8"/>
                 </properties>
-                <description></description>
             </endpoint>
-            <pattern name="Collection Aggregator" type="http://www.mulesoft.org/schema/mule/core/collection-aggregator" entity-id="cb6f7b9d-4236-40fb-aadb-391fe8bd4088"/>
+            <splitter index="9" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
+                <properties>
+                    <property-collection name="77c51b83-6c3c-4e6b-a960-97b1e815d7e8">
+                        <property name="choice.expression" value="payload instanceof org.jembi.rhea.RestfulHttpResponse"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="payload instanceof org.jembi.rhea.RestfulHttpResponse"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="a2487f84-52b1-487a-b013-09d6fabd25a0">
+                        <property name="choice.otherwise" value="true"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                </properties>
+                <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane hadOnlyOneElement="false" index="11" isChoiceOtherwiseLane="false" entity-id="77c51b83-6c3c-4e6b-a960-97b1e815d7e8">
+                        <splitter index="12" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#3">
+                            <properties>
+<property-collection name="26a467ba-d6bb-4484-8316-45d1b14382aa">
+    <property name="choice.otherwise" value="true"/>
+    <property-collection name="choice.attributes"/>
+</property-collection>
+<property-collection name="8fb19067-cf2e-4717-accd-7fc1f7ef7b86">
+    <property name="choice.expression" value="message.payload.httpStatus == 500"/>
+    <property-collection name="choice.attributes">
+        <property name="expression" value="message.payload.httpStatus == 500"/>
+        <property name="evaluator" value="groovy"/>
+    </property-collection>
+</property-collection>
+                            </properties>
+                            <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#4"/>
+                            <compartment entity-id="compartment#2">
+<lane hadOnlyOneElement="false" index="14" isChoiceOtherwiseLane="false" entity-id="8fb19067-cf2e-4717-accd-7fc1f7ef7b86">
+    <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Persist raw message response" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#2">
+        <properties>
+            <property name="exchange-pattern" value="one-way"/>
+            <property name="exchange-pattern" value="request-response"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="queryKey" value="errorSplitMsg"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="businessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="address"/>
+            <property name="responseTimeout" value="10000"/>
+            <property name="encoding"/>
+            <property name="disableTransportTransformer"/>
+            <property name="mimeType"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="queryTimeout" value="-1"/>
+            <property name="pollingFrequency"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="connector-ref" value="JDBCConnector"/>
+            <property name="ref"/>
+            <property name="transformer-refs"/>
+            <property name="responseTransformer-refs"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property name="auxiliary;index" value="15"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+                <property name="value" value="UPDATE transaction_log SET status='3', responded_timestamp=now(), resp_body=#[groovy: return message.payload.getBody();], resp_status=#[groovy: return message.payload.getHttpStatus();] WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+                <property name="auxiliary;wrapIn" value="16"/>
+                <property name="auxiliary;index" value="16"/>
+                <property name="key" value="errorSplitMsg"/>
+            </property-collection>
+        </properties>
+    </endpoint>
+</lane>
+<lane hadOnlyOneElement="false" index="18" isChoiceOtherwiseLane="true" entity-id="26a467ba-d6bb-4484-8316-45d1b14382aa">
+    <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Persist raw message response" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#3">
+        <properties>
+            <property name="exchange-pattern" value="one-way"/>
+            <property name="exchange-pattern" value="request-response"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="queryKey" value="updateSplitMsg"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="businessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="address"/>
+            <property name="responseTimeout" value="10000"/>
+            <property name="encoding"/>
+            <property name="disableTransportTransformer"/>
+            <property name="mimeType"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="queryTimeout" value="-1"/>
+            <property name="pollingFrequency"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="connector-ref" value="JDBCConnector"/>
+            <property name="ref"/>
+            <property name="transformer-refs"/>
+            <property name="responseTransformer-refs"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property name="auxiliary;index" value="19"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+                <property name="value" value="UPDATE transaction_log SET status='2', responded_timestamp=now(), resp_body=#[groovy: return message.payload.getBody();], resp_status=#[groovy: return message.payload.getHttpStatus();] WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+                <property name="auxiliary;wrapIn" value="20"/>
+                <property name="auxiliary;index" value="20"/>
+                <property name="key" value="updateSplitMsg"/>
+            </property-collection>
+        </properties>
+    </endpoint>
+</lane>
+                            </compartment>
+                        </splitter>
+                    </lane>
+                    <lane hadOnlyOneElement="false" index="22" isChoiceOtherwiseLane="true" entity-id="a2487f84-52b1-487a-b013-09d6fabd25a0">
+                        <pattern name="Groovy" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#1">
+                            <properties>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="23"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+    <property name="text" value="StringWriter sw = new StringWriter();&#xA;message.getExceptionPayload().getException().printStackTrace(new PrintWriter(sw));&#xA;message.setOutboundProperty(&quot;stacktrace&quot;, sw.toString());"/>
+    <property name="engine" value="Groovy"/>
+    <property name="auxiliary;wrapIn" value="24"/>
+    <property name="auxiliary;index" value="24"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
+    <property name="text" value="StringWriter sw = new StringWriter();&#xA;message.getExceptionPayload().getException().printStackTrace(new PrintWriter(sw));&#xA;message.setOutboundProperty(&quot;stacktrace&quot;, sw.toString());"/>
+    <property name="engine" value="Groovy"/>
+    <property name="auxiliary;wrapIn" value="24"/>
+    <property name="auxiliary;index" value="24"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Persist raw error message response" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#4">
+                            <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="request-response"/>
+<property name="auxiliary;index" value="26"/>
+<property name="queryKey" value="errorSplitMsg2"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="26"/>
+<property name="address"/>
+<property name="responseTimeout" value="10000"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="26"/>
+<property name="queryTimeout" value="-1"/>
+<property name="pollingFrequency"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="connector-ref" value="JDBCConnector"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="26"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/jdbc/query;0">
+    <property name="value" value="UPDATE transaction_log SET status='3', error_description=#[groovy: return message.getExceptionPayload().getMessage();], error_stacktrace=#[header:OUTBOUND:stacktrace], responded_timestamp=now() WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+    <property name="auxiliary;wrapIn" value="27"/>
+    <property name="auxiliary;index" value="27"/>
+    <property name="key" value="errorSplitMsg2"/>
+</property-collection>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </splitter>
+            <pattern name="Collection Aggregator" type="http://www.mulesoft.org/schema/mule/core/collection-aggregator" entity-id="Collection Aggregator#1">
+                <properties>
+                    <property name="timeout"/>
+                    <property name="failOnTimeout" value="true"/>
+                    <property name="auxiliary;index" value="28"/>
+                    <property name="auxiliary;index" value="28"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="auxiliary;index" value="28"/>
+                    <property name="auxiliary;index" value="28"/>
+                    <property name="auxiliary;index" value="28"/>
+                </properties>
+            </pattern>
         </lane>
     </flow>
     <description>Orchestration flow for splitting up an identifierUpdateEvents message from the CR into single event messages for SHR.</description>

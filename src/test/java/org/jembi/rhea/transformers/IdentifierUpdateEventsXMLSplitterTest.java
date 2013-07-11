@@ -17,10 +17,15 @@ import org.mule.api.transformer.TransformerException;
 public class IdentifierUpdateEventsXMLSplitterTest {
 	
 	private MuleMessage msgMock;
+	private RestfulHttpRequest reqMock;
 
 	@Before
 	public void setUp() throws Exception {
 		msgMock = mock(MuleMessage.class);
+		reqMock = mock(RestfulHttpRequest.class);
+		when(reqMock.getPath()).thenReturn("testPath");
+		when(reqMock.getHttpMethod()).thenReturn("PUT");
+		when(msgMock.getPayload()).thenReturn(reqMock);
 	}
 
 	@After
@@ -30,10 +35,10 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	/***
 	 * Transformer should split the identifierUpdateEvent nodes into seperate xml documents
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes" })
 	@Test
 	public void testTransformMessageMuleMessageString() throws Exception {
-		when(msgMock.getPayloadAsString()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
+		when(reqMock.getBody()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
 		String expectedResult = Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents_Split.xml");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
@@ -42,8 +47,9 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 		assertTrue(result instanceof List);
 		
 		StringBuilder cat = new StringBuilder();
-		for (String msg : (List<String>)result) {
-			cat.append(msg);
+		for (Object msg : (List)result) {
+			assertTrue(msg instanceof RestfulHttpRequest);
+			cat.append(((RestfulHttpRequest)msg).getBody());
 		}
 		assertEquals(Util.trimXML(expectedResult), Util.trimXML(cat.toString()));
 	}
@@ -54,7 +60,7 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	@SuppressWarnings("rawtypes")
 	@Test
 	public void testTransformMessageMuleMessageString_NoEvents() throws Exception {
-		when(msgMock.getPayloadAsString()).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?><identifierUpdateEvents></identifierUpdateEvents>");
+		when(reqMock.getBody()).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?><identifierUpdateEvents></identifierUpdateEvents>");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		Object result = splitter.transformMessage(msgMock, null);
@@ -68,7 +74,7 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	 */
 	@Test
 	public void testTransformMessageMuleMessageString_Invalid() throws Exception {
-		when(msgMock.getPayloadAsString()).thenReturn("Not a valid XML document!");
+		when(reqMock.getBody()).thenReturn("Not a valid XML document!");
 		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		try {

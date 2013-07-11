@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd ">
     <flow name="identifier-update-events-orchestrationFlow1" doc:name="identifier-update-events-orchestrationFlow1">
         <vm:inbound-endpoint exchange-pattern="request-response" path="identifierUpdateEventsOrchestrationQueue" doc:name="VM"/>
         <logger message="Orchestrating identifierUpdateEvents message" level="INFO" doc:name="Logger"/>
         <custom-transformer class="org.jembi.rhea.transformers.IdentifierUpdateEventsXMLSplitter" doc:name="Split identifierUpdateEvents Message"/>
         <collection-splitter doc:name="Collection Splitter"/>
+        <jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="insertSplitMsg" responseTimeout="10000" queryTimeout="-1" connector-ref="JDBCConnector" doc:name="Persist raw message">
+            <jdbc:query key="insertSplitMsg" value="insert into transaction_log (uuid, path, request_params, body, http_method, recieved_timestamp, authorized_username, status) values (#[groovy: return message.payload.getUuid();], #[groovy: return message.payload.getPath();], #[groovy: return message.payload.getRequestParamsAsString();], #[groovy: return message.payload.getBody();], #[groovy: return message.payload.getHttpMethod();], now(), '', 1);"/>
+        </jdbc:outbound-endpoint>
         <vm:outbound-endpoint exchange-pattern="request-response" path="identifierUpdateEventsDenormalizationQueue" doc:name="VM"/>
+        <choice doc:name="Choice">
+            <when expression="payload instanceof org.jembi.rhea.RestfulHttpResponse" evaluator="groovy">
+                <processor-chain>
+                    <choice doc:name="Choice">
+                    	<when expression="message.payload.httpStatus == 500" evaluator="groovy">
+                			<processor-chain>
+                				<jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="errorSplitMsg" responseTimeout="10000" queryTimeout="-1" connector-ref="JDBCConnector" doc:name="Persist raw message response">
+                           <jdbc:query key="errorSplitMsg" value="UPDATE transaction_log SET status='3', responded_timestamp=now(), resp_body=#[groovy: return message.payload.getBody();], resp_status=#[groovy: return message.payload.getHttpStatus();] WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+                       </jdbc:outbound-endpoint>
+                			</processor-chain>
+               			</when>
+               			<otherwise>
+               				<processor-chain>
+               					<jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="updateSplitMsg" responseTimeout="10000" queryTimeout="-1" connector-ref="JDBCConnector" doc:name="Persist raw message response">
+                           <jdbc:query key="updateSplitMsg" value="UPDATE transaction_log SET status='2', responded_timestamp=now(), resp_body=#[groovy: return message.payload.getBody();], resp_status=#[groovy: return message.payload.getHttpStatus();] WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+                       </jdbc:outbound-endpoint>
+                			</processor-chain>
+               			</otherwise>
+                    </choice>
+                </processor-chain>
+            </when>
+            <otherwise>
+                <processor-chain>
+                    <scripting:component doc:name="Groovy">
+                        <scripting:script engine="Groovy">
+                            <scripting:text><![CDATA[StringWriter sw = new StringWriter();
+message.getExceptionPayload().getException().printStackTrace(new PrintWriter(sw));
+message.setOutboundProperty("stacktrace", sw.toString());]]></scripting:text>
+                        </scripting:script>
+                    </scripting:component>
+                    <jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="errorSplitMsg2" responseTimeout="10000" queryTimeout="-1" connector-ref="JDBCConnector" doc:name="Persist raw error message response">
+                        <jdbc:query key="errorSplitMsg2" value="UPDATE transaction_log SET status='3', error_description=#[groovy: return message.getExceptionPayload().getMessage();], error_stacktrace=#[header:OUTBOUND:stacktrace], responded_timestamp=now() WHERE uuid=#[groovy: return message.payload.getUuid();];"/>
+                    </jdbc:outbound-endpoint>
+                </processor-chain>
+            </otherwise>
+        </choice>
         <collection-aggregator failOnTimeout="true" doc:name="Collection Aggregator"/>
     </flow>
 </mule>

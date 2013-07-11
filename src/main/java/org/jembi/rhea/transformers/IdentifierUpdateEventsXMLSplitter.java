@@ -45,10 +45,11 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 	@Override
 	public Object transformMessage(MuleMessage msg, String outputEncoding)
 			throws TransformerException {
-		List<String> result = new ArrayList<String>();
+		List<RestfulHttpRequest> result = new ArrayList<RestfulHttpRequest>();
+		RestfulHttpRequest origReq = ((RestfulHttpRequest)msg.getPayload());
 		
 		try {
-			String updates = ((RestfulHttpRequest)msg.getPayload()).getBody();
+			String updates = origReq.getBody();
 			
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			Document doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(updates)));
@@ -65,7 +66,7 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 				Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				StringWriter sw = new StringWriter();
 				transformer.transform(new DOMSource(root), new StreamResult(sw));
-				result.add(sw.toString());
+				result.add(buildRestfulRequest(sw.toString(), origReq.getPath(), origReq.getHttpMethod()));
 			}
 		} catch (SAXException e) {
 			throw new TransformerException(this, e);
@@ -87,5 +88,12 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 		
 		return result;
 	}
-
+	
+	private RestfulHttpRequest buildRestfulRequest(String payload, String path, String method) {
+		RestfulHttpRequest restMsg = new RestfulHttpRequest();
+		restMsg.setPath(path);
+		restMsg.setHttpMethod(method);
+		restMsg.setBody(payload);
+		return restMsg;
+	}
 }
