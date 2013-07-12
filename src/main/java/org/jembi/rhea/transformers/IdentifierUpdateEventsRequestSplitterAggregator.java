@@ -8,9 +8,9 @@ import org.jembi.rhea.RestfulHttpRequest;
 import org.jembi.rhea.RestfulHttpResponse;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
+import org.mule.api.client.LocalMuleClient;
 import org.mule.api.transformer.TransformerException;
 import org.mule.api.transport.PropertyScope;
-import org.mule.module.client.MuleClient;
 import org.mule.transformer.AbstractMessageTransformer;
 
 
@@ -32,7 +32,7 @@ public class IdentifierUpdateEventsRequestSplitterAggregator extends AbstractMes
 		RestfulHttpResponse result = new RestfulHttpResponse();
 		
 		try {
-			MuleClient client = new MuleClient(muleContext);
+			LocalMuleClient client = muleContext.getClient();
 
 			List<RestfulHttpRequest> requests = ((List<RestfulHttpRequest>)msg.getPayload());
 			StringBuilder listOfRequests = new StringBuilder();
