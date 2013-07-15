@@ -58,14 +58,11 @@ public class IdentifierUpdateEventsXMLSplitter extends AbstractMessageTransforme
 			NodeList nodes = (NodeList) xpath.evaluate(String.format("/%s/%s", UPDATES_ROOT_ELEMENT, UPDATES_ITEM_ELEMENT), doc, XPathConstants.NODESET);
 			Document output = dbf.newDocumentBuilder().newDocument();
 			for (int i=0; i<nodes.getLength(); i++) {
-				Node root = output.createElement(UPDATES_ROOT_ELEMENT);
 				Node item = output.importNode(nodes.item(i), true);
-				root.appendChild(item);
-				nodes.item(i);
-				
 				Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				StringWriter sw = new StringWriter();
-				transformer.transform(new DOMSource(root), new StreamResult(sw));
+				
+				transformer.transform(new DOMSource(item), new StreamResult(sw));
 				result.add(buildRestfulRequest(sw.toString(), origReq.getPath(), origReq.getHttpMethod()));
 			}
 		} catch (SAXException e) {

@@ -3,7 +3,6 @@ package org.jembi.rhea.transformers;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.jembi.Util;
@@ -49,7 +48,7 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 		StringBuilder cat = new StringBuilder();
 		for (Object msg : (List)result) {
 			assertTrue(msg instanceof RestfulHttpRequest);
-			cat.append(((RestfulHttpRequest)msg).getBody());
+			cat.append(((RestfulHttpRequest)msg).getBody() + "\n");
 		}
 		assertEquals(Util.trimXML(expectedResult), Util.trimXML(cat.toString()));
 	}
