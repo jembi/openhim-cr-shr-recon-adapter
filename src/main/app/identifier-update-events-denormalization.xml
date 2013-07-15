@@ -17,6 +17,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         <message-properties-transformer scope="session" doc:name="Remember UUID">
             <add-message-property key="SplitMsgUUID" value="#[groovy:return payload.getUuid();]"/>
         </message-properties-transformer>
+        <expression-transformer evaluator="groovy" expression="return message.payload.body;" doc:name="Transfor HTTPRestfulMessage to HTTP Body"/>
         <response>
             <logger message="Recieved response from OpenMRS SHR: #[groovy: message.toString();]]" level="INFO" doc:name="Logger"/>
             <custom-transformer class="org.jembi.rhea.transformers.HttpResponseToRestfulHttpResponseTransformer" doc:name="HttpResponseToRestfulHttpResponseTransformer"/>
@@ -29,6 +30,6 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <custom-transformer class="org.jembi.heal.DoNothingTransformer" doc:name="On-ramp Transformer"/>
             <custom-transformer class="org.jembi.heal.DoNothingTransformer" doc:name="Translation Transformer"/>
         </response>
-        <http:outbound-endpoint exchange-pattern="request-response" host="${shr.host}" port="${shr.port}" path="openmrs/ws/rest/RHEA/patient/identifier" responseTimeout="120000" contentType="text/xml" doc:name="Deliver message to OpenMRS SHR" method="PUT"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="${shr.host}" port="${shr.port}" path="openmrs/ws/rest/RHEA/patient/identifier" responseTimeout="120000" contentType="text/xml" doc:name="Deliver message to OpenMRS SHR" method="PUT" encoding="UTF-8"/>
     </flow>
 </mule>
