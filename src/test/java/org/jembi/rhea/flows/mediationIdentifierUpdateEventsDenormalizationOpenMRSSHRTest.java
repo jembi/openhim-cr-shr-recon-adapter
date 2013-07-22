@@ -33,7 +33,7 @@ public class mediationIdentifierUpdateEventsDenormalizationOpenMRSSHRTest extend
 	
 	
 	private void setupWebserviceStub(int httpStatus) {
-		stubFor(post(urlEqualTo("/openmrs/ws/rest/RHEA/patient/identifier"))
+		stubFor(put(urlEqualTo("/openmrs/ws/rest/RHEA/patient/identifier"))
 		    	.willReturn(aResponse()
 		    		.withStatus(httpStatus)));
 	}
