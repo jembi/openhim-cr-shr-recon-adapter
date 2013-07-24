@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-normalization-generic">
-    <flow SubFlow="false" name="identifier-update-events-normalization-genericFlow1" entity-id="c1cc67b9-2682-43db-913b-4df4dd026acd">
+    <flow SubFlow="false" name="identifier-update-events-normalization-genericFlow1" entity-id="f10758cb-e04f-4132-9e36-403476b5b8f3">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

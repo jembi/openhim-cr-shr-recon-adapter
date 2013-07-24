@@ -30,7 +30,7 @@ public class mediationIdentifierUpdateEventsDenormalizationOpenMRSSHRTest extend
 	
 	@Override
 	protected String getConfigResources() {
-		return "src/main/app/identifier-update-events-denormalization.xml";
+		return "src/main/app/identifierupdateevents-denormalization-openmrsshr.xml";
 	}
 	
 	@Override
