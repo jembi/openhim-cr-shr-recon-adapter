@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.jembi.Util;
 import org.jembi.rhea.RestfulHttpRequest;
 import org.jembi.rhea.RestfulHttpResponse;
@@ -31,6 +33,18 @@ public class mediationIdentifierUpdateEventsDenormalizationOpenMRSSHRTest extend
 		return "src/main/app/identifier-update-events-denormalization.xml";
 	}
 	
+	@Override
+	protected void doSetUp() throws Exception {
+		Logger.getRootLogger().setLevel(Level.INFO);
+		super.doSetUp();
+	}
+
+	@Override
+	protected void doTearDown() throws Exception {
+		Logger.getRootLogger().setLevel(Level.WARN);
+		super.doTearDown();
+	}
+	
 	
 	private void setupWebserviceStub(int httpStatus) {
 		stubFor(put(urlEqualTo("/openmrs/ws/rest/RHEA/patient/identifier"))
@@ -53,14 +67,14 @@ public class mediationIdentifierUpdateEventsDenormalizationOpenMRSSHRTest extend
 		
 		Map<String, Object> properties = null;
 		RestfulHttpRequest req = new RestfulHttpRequest();
-		req.setHttpMethod(RestfulHttpRequest.HTTP_POST);
+		req.setHttpMethod(RestfulHttpRequest.HTTP_PUT);
 		req.setPath("openmrs/ws/rest/v1/patient/identifier");
 		req.setBody(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvent.xml"));
 		
 		MuleClient client = new MuleClient(muleContext);
 		MuleMessage result = client.send("vm://identifierUpdateEventsDenormalizationQueue", (Object)req, properties);
 		
-		verify(postRequestedFor(urlEqualTo("/openmrs/ws/rest/RHEA/patient/identifier")));
+		verify(putRequestedFor(urlEqualTo("/openmrs/ws/rest/RHEA/patient/identifier")));
 		Assert.assertTrue(result.getPayload() instanceof RestfulHttpResponse);
 		RestfulHttpResponse resp = (RestfulHttpResponse) result.getPayload();
 	    assertEquals(status, resp.getHttpStatus());
