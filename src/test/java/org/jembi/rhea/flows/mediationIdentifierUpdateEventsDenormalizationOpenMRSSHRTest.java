@@ -25,7 +25,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 public class mediationIdentifierUpdateEventsDenormalizationOpenMRSSHRTest extends FunctionalTestCase {
 	
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(8003);
+	public WireMockRule wireMockRule = new WireMockRule(8080);
 
 	
 	@Override
