@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="mediation-normalization">
-    <flow SubFlow="false" name="MediationFlow" entity-id="93cb52a3-6ad4-4846-b1e5-12a754fd4722">
+    <flow SubFlow="false" name="MediationFlow" entity-id="e98d1c22-f6ed-4fd8-9070-bede1f1b6982">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -52,105 +52,105 @@
             </pattern>
             <splitter index="4" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="b52c00a4-e129-44ac-870e-e5403d39101a">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="bc7061b6-344d-4c83-95c6-f6a649707ca8">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="8d579157-00a2-4bcb-91a8-e4c4d5262c03">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="fd315c52-d556-4028-8096-8b7c5b04fe51">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="83006394-b864-4088-bfd8-5d887c7ecc6d">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounter/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounter/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="0f36dd99-87d2-42be-be75-3d0699f209ec">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/facilities')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/facilities')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="f1d34214-4bcc-498e-88d4-3a312701c069">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="d7b5b40c-23bf-49d3-8b08-07f28322a632">
+                    <property-collection name="05111743-bad8-4ef1-a4fa-fc0920cc603a">
                         <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/alerts') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="message.payload.path.contains('ws/rest/v1/alerts') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
                             <property name="evaluator" value="groovy"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="589c9331-5a77-46ed-96ae-e1d32cd8f060">
+                    <property-collection name="4c6a86ee-0d1f-4fd0-ad10-47dbba718560">
                         <property name="choice.otherwise" value="true"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="cf19dce8-e6c1-4e12-a7b9-1e7fe55718c3">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="f502aa4c-4259-40cb-bd30-375620d4a728">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/facility/')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/facility/')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="bd70aeb3-91fd-464a-870a-7a4feabb74a8">
-                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/professional/')"/>
-                        <property-collection name="choice.attributes">
-                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/professional/')"/>
-                            <property name="evaluator" value="groovy"/>
-                        </property-collection>
-                    </property-collection>
-                    <property-collection name="e5d12fc9-e6bf-4f2a-b968-421ccb1b8ac5">
+                    <property-collection name="611b78bd-9495-4d7c-99c7-45eddab7dc4d">
                         <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
                             <property name="evaluator" value="groovy"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="6a9b5f0c-bf71-492c-a82d-c7204aab1ed1">
+                    <property-collection name="82e14be3-845d-47e1-83ab-0444b904442a">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/identifier') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="bb366997-e0ff-4333-be35-b75b2e0e441d">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="40c2d655-90e6-4609-b986-457c54e7937b">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="50400a1c-6c78-4966-926d-4c6d05d09b08">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounter/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounter/') &amp;&amp; message.payload.httpMethod.equals('GET')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="a61ca62f-c8d0-450d-8d27-03112ddcbafb">
                         <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/professionals')"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="message.payload.path.contains('ws/rest/v1/professionals')"/>
                             <property name="evaluator" value="groovy"/>
                         </property-collection>
                     </property-collection>
+                    <property-collection name="a4dff498-b666-41bd-a54d-a92c6b8aacbb">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.path.contains('/encounters') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="ab7f1e92-61d7-433c-81b4-9984792d19cd">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/professional/')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/professional/')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="f62e629a-efeb-4b87-adef-44fd05e76046">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patients') &amp;&amp; message.payload.httpMethod.equals('POST')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="e4175072-7528-4fa4-b670-760d0642d43c">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/facility/')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/facility/')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="a9f667e9-c7e1-4d8e-b5fd-446b65fcc262">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/facilities')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/facilities')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="c912dfc7-caaa-404e-88b5-28690d6d9523">
+                        <property name="choice.expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="message.payload.path.contains('ws/rest/v1/patient/') &amp;&amp; message.payload.httpMethod.equals('PUT')"/>
+                            <property name="evaluator" value="groovy"/>
+                        </property-collection>
+                    </property-collection>
                 </properties>
                 <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#1">
-                    <lane hadOnlyOneElement="false" index="6" isChoiceOtherwiseLane="false" entity-id="0f36dd99-87d2-42be-be75-3d0699f209ec">
+                    <lane hadOnlyOneElement="false" index="6" isChoiceOtherwiseLane="false" entity-id="a9f667e9-c7e1-4d8e-b5fd-446b65fcc262">
                         <pattern name="Log query facilities" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
                             <properties>
 <property name="message" value="Transaction type: query facilities"/>
@@ -190,7 +190,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="10" isChoiceOtherwiseLane="false" entity-id="f502aa4c-4259-40cb-bd30-375620d4a728">
+                    <lane hadOnlyOneElement="false" index="10" isChoiceOtherwiseLane="false" entity-id="e4175072-7528-4fa4-b670-760d0642d43c">
                         <pattern name="Log get facility" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
                             <properties>
 <property name="message" value="Transaction type: get facility"/>
@@ -230,7 +230,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="14" isChoiceOtherwiseLane="false" entity-id="bd70aeb3-91fd-464a-870a-7a4feabb74a8">
+                    <lane hadOnlyOneElement="false" index="14" isChoiceOtherwiseLane="false" entity-id="ab7f1e92-61d7-433c-81b4-9984792d19cd">
                         <pattern name="Log get professional" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#4">
                             <properties>
 <property name="message" value="Transaction type: get professional"/>
@@ -270,7 +270,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="18" isChoiceOtherwiseLane="false" entity-id="6a9b5f0c-bf71-492c-a82d-c7204aab1ed1">
+                    <lane hadOnlyOneElement="false" index="18" isChoiceOtherwiseLane="false" entity-id="a61ca62f-c8d0-450d-8d27-03112ddcbafb">
                         <pattern name="Log query professionals" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#5">
                             <properties>
 <property name="message" value="Transaction type: query professionals"/>
@@ -310,7 +310,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="22" isChoiceOtherwiseLane="false" entity-id="e5d12fc9-e6bf-4f2a-b968-421ccb1b8ac5">
+                    <lane hadOnlyOneElement="false" index="22" isChoiceOtherwiseLane="false" entity-id="611b78bd-9495-4d7c-99c7-45eddab7dc4d">
                         <pattern name="Log query encounters" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#6">
                             <properties>
 <property name="message" value="Transaction type: query encounters"/>
@@ -350,7 +350,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="false" entity-id="bc7061b6-344d-4c83-95c6-f6a649707ca8">
+                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="false" entity-id="a4dff498-b666-41bd-a54d-a92c6b8aacbb">
                         <pattern name="Log save encounters" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#7">
                             <properties>
 <property name="message" value="Transaction type: save encounters"/>
@@ -390,7 +390,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="30" isChoiceOtherwiseLane="false" entity-id="83006394-b864-4088-bfd8-5d887c7ecc6d">
+                    <lane hadOnlyOneElement="false" index="30" isChoiceOtherwiseLane="false" entity-id="50400a1c-6c78-4966-926d-4c6d05d09b08">
                         <pattern name="Log get encounter" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#8">
                             <properties>
 <property name="message" value="Transaction type: get encounter"/>
@@ -430,7 +430,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="34" isChoiceOtherwiseLane="false" entity-id="b52c00a4-e129-44ac-870e-e5403d39101a">
+                    <lane hadOnlyOneElement="false" index="34" isChoiceOtherwiseLane="false" entity-id="82e14be3-845d-47e1-83ab-0444b904442a">
                         <pattern name="Log identifier update" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#9">
                             <properties>
 <property name="message" value="Transaction type: identifier update"/>
@@ -470,7 +470,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="38" isChoiceOtherwiseLane="false" entity-id="f1d34214-4bcc-498e-88d4-3a312701c069">
+                    <lane hadOnlyOneElement="false" index="38" isChoiceOtherwiseLane="false" entity-id="f62e629a-efeb-4b87-adef-44fd05e76046">
                         <pattern name="Log save patient" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#10">
                             <properties>
 <property name="message" value="Transaction type: save patient"/>
@@ -510,7 +510,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="42" isChoiceOtherwiseLane="false" entity-id="8d579157-00a2-4bcb-91a8-e4c4d5262c03">
+                    <lane hadOnlyOneElement="false" index="42" isChoiceOtherwiseLane="false" entity-id="bb366997-e0ff-4333-be35-b75b2e0e441d">
                         <pattern name="Log query patients" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#11">
                             <properties>
 <property name="message" value="Transaction type: query patients"/>
@@ -550,7 +550,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="46" isChoiceOtherwiseLane="false" entity-id="cf19dce8-e6c1-4e12-a7b9-1e7fe55718c3">
+                    <lane hadOnlyOneElement="false" index="46" isChoiceOtherwiseLane="false" entity-id="40c2d655-90e6-4609-b986-457c54e7937b">
                         <pattern name="Log get patients" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#12">
                             <properties>
 <property name="message" value="Transaction type: get patients"/>
@@ -590,7 +590,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="50" isChoiceOtherwiseLane="false" entity-id="fd315c52-d556-4028-8096-8b7c5b04fe51">
+                    <lane hadOnlyOneElement="false" index="50" isChoiceOtherwiseLane="false" entity-id="c912dfc7-caaa-404e-88b5-28690d6d9523">
                         <pattern name="Log update patients" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#13">
                             <properties>
 <property name="message" value="Transaction type: update patients"/>
@@ -630,7 +630,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="54" isChoiceOtherwiseLane="false" entity-id="d7b5b40c-23bf-49d3-8b08-07f28322a632">
+                    <lane hadOnlyOneElement="false" index="54" isChoiceOtherwiseLane="false" entity-id="05111743-bad8-4ef1-a4fa-fc0920cc603a">
                         <pattern name="Log receive alert" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#14">
                             <properties>
 <property name="message" value="Transaction type: receive alert"/>
@@ -670,39 +670,45 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="58" isChoiceOtherwiseLane="true" entity-id="589c9331-5a77-46ed-96ae-e1d32cd8f060">
-                        <pattern name="Error Logged" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#15">
+                    <lane hadOnlyOneElement="false" index="58" isChoiceOtherwiseLane="true" entity-id="4c6a86ee-0d1f-4fd0-ad10-47dbba718560">
+                        <pattern name="Log send to default channel" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#15">
                             <properties>
-<property name="message" value="Could not route message with path: #[groovy: return message.payload.getPath();]"/>
-<property name="level" value="ERROR"/>
+<property name="message" value="Could not find a matching route for path #[groovy: return message.payload.getPath();] sending to default channel "/>
+<property name="level" value="INFO"/>
 <property name="category"/>
 <property name="auxiliary;index" value="59"/>
 <property name="auxiliary;index" value="59"/>
 <property name="auxiliary;index" value="59"/>
                             </properties>
                         </pattern>
-                        <pattern name="Throw an exception" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#1">
+                        <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Send to defaultChannel-Generic-NormalizationQueue" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#15">
                             <properties>
+<property name="exchange-pattern" value="one-way"/>
+<property name="exchange-pattern" value="request-response"/>
+<property name="auxiliary;index" value="60"/>
+<property name="path" value="defaultChannel-Generic-NormalizationQueue"/>
 <property name="auxiliary;index" value="60"/>
 <property name="auxiliary;index" value="60"/>
 <property name="auxiliary;index" value="60"/>
+<property name="businessEventsLabel"/>
+<property name="tracking:enable-default-events"/>
+<property name="auxiliary;index" value="60"/>
+<property name="address"/>
+<property name="responseTimeout"/>
+<property name="encoding"/>
+<property name="disableTransportTransformer"/>
+<property name="mimeType"/>
+<property name="auxiliary;index" value="60"/>
+<property name="auxiliary;index" value="60"/>
+<property name="connector-ref"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="responseTransformer-refs"/>
 <property name="auxiliary;index" value="60"/>
 <property name="auxiliary;index" value="60"/>
 <property name="auxiliary;index" value="60"/>
-<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
-    <property name="text" value="throw new Exception(&quot;Unknown transaction type, check the the HTTP method and path are correct for the endpoint you are trying to access&quot;);"/>
-    <property name="engine" value="Groovy"/>
-    <property name="auxiliary;wrapIn" value="61"/>
-    <property name="auxiliary;index" value="61"/>
-</property-collection>
-<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-    <property name="text" value="throw new Exception(&quot;Unknown transaction type, check the the HTTP method and path are correct for the endpoint you are trying to access&quot;);"/>
-    <property name="engine" value="Groovy"/>
-    <property name="auxiliary;wrapIn" value="61"/>
-    <property name="auxiliary;index" value="61"/>
-</property-collection>
                             </properties>
-                        </pattern>
+                        </endpoint>
                     </lane>
                 </compartment>
             </splitter>
