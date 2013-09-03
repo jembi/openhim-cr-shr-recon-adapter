@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jembi/openhim-cr-shr-recon-adapter.png?branch=master)](https://travis-ci.org/jembi/openhim-cr-shr-recon-adapter)
+
 OpenHIM
 =======
 
