@@ -2,13 +2,13 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="identifier-update-events-denormalization">
     <global-element name="Property Placeholder" type="http://www.springframework.org/schema/context/property-placeholder" entity-id="Property Placeholder#1">
         <properties>
-            <property name="location" value="classpath:HIM-core.properties, classpath:HIM-core-override.properties"/>
+            <property name="location" value="classpath:cr-shr-recon.properties, classpath:cr-shr-recon-override.properties"/>
             <property name="auxiliary;index" value="1"/>
             <property name="auxiliary;index" value="1"/>
             <property name="auxiliary;index" value="1"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="identifier-update-events-denormalizationFlow1" entity-id="31a8a4b8-424b-4f8a-b38f-14578c6a1d70">
+    <flow SubFlow="false" name="identifier-update-events-denormalizationFlow1" entity-id="4837d449-097d-4832-bed6-f848d18044bc">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>

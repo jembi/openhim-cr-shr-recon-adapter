@@ -2,13 +2,13 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="openempi-identifier-update-events">
     <global-element name="Property Placeholder" type="http://www.springframework.org/schema/context/property-placeholder" entity-id="Property Placeholder#1">
         <properties>
-            <property name="location" value="classpath:HIM-core.properties, classpath:HIM-core-override.properties"/>
+            <property name="location" value="classpath:cr-shr-recon.properties, classpath:cr-shr-recon-override.properties"/>
             <property name="auxiliary;index" value="1"/>
             <property name="auxiliary;index" value="1"/>
             <property name="auxiliary;index" value="1"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="492853a6-12fe-4314-b2ca-226725d50b8e">
+    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="ba55d34c-8523-4644-ab03-6caa58412697">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -66,11 +66,11 @@
             </pattern>
             <splitter index="6" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="33659b1b-032b-4de3-a9c5-c18465112d22">
+                    <property-collection name="3de2adb3-5b7a-46bd-ac6b-c0eea36b5cdf">
                         <property name="choice.otherwise" value="true"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="95db485b-9475-461a-bfab-eaf624bd0ec9">
+                    <property-collection name="9442655a-80fa-41c0-bd66-620ce111090d">
                         <property name="choice.expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
@@ -79,7 +79,7 @@
                 </properties>
                 <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#1">
-                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="95db485b-9475-461a-bfab-eaf624bd0ec9">
+                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="9442655a-80fa-41c0-bd66-620ce111090d">
                         <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Get last poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#1">
                             <properties>
 <property name="exchange-pattern" value="one-way"/>
@@ -334,7 +334,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="true" entity-id="33659b1b-032b-4de3-a9c5-c18465112d22">
+                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="true" entity-id="3de2adb3-5b7a-46bd-ac6b-c0eea36b5cdf">
                         <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
                             <properties>
 <property name="message" value="OpenEMPI identifierUpdateEvents polling disabled"/>

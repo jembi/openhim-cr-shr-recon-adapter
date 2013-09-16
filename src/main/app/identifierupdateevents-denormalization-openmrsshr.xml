@@ -6,7 +6,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
-    <context:property-placeholder xmlns:context="http://www.springframework.org/schema/context" location="classpath:HIM-core.properties, classpath:HIM-core-override.properties"></context:property-placeholder>
+    <context:property-placeholder xmlns:context="http://www.springframework.org/schema/context" location="classpath:cr-shr-recon.properties, classpath:cr-shr-recon-override.properties"></context:property-placeholder>
     <flow name="identifier-update-events-denormalizationFlow1" doc:name="identifier-update-events-denormalizationFlow1">
         <vm:inbound-endpoint exchange-pattern="request-response" path="identifierUpdateEventsDenormalizationQueue" doc:name="VM"/>
         <logger message="Denormalizing identifierUpdateEvent message for the OpenMRS SHR" level="INFO" doc:name="Logger"/>
