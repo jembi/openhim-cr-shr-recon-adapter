@@ -2,22 +2,22 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="CE-3.2.1" xsi:schemaLocation="
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="CE-3.3.0" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
 http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd 
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
 	<context:property-placeholder xmlns:context="http://www.springframework.org/schema/context" location="classpath:HIM-core.properties, classpath:HIM-core-override.properties"></context:property-placeholder>
     <spring:beans>
-        <spring:bean id="jdbcDataSource" name="jdbcDataSource" class="org.enhydra.jdbc.standard.StandardDataSource" doc:name="jdbcDataSource">
+        <spring:bean id="jdbcDataSource" name="jdbcDataSource" class="org.enhydra.jdbc.standard.StandardDataSource" >
             <spring:property name="password" value="${db.password}"/>
             <spring:property name="user" value="${db.user}"/>
             <spring:property name="url" value="${db.url}"/>
             <spring:property name="driverName" value="${db.driverName}"/>
         </spring:bean>
     </spring:beans>
-    <jdbc:connector name="JDBCConnector" dataSource-ref="jdbcDataSource" validateConnections="true" queryTimeout="-1" pollingFrequency="0" doc:name="JDBCConnector"/>
+    <jdbc:connector name="JDBCConnector" dataSource-ref="jdbcDataSource" validateConnections="true" queryTimeout="-1" pollingFrequency="0" doc:name="Database"/>
     <flow name="message-persistanceFlow1" doc:name="message-persistanceFlow1">
         <vm:inbound-endpoint exchange-pattern="request-response" path="messagePersistanceQueue" responseTimeout="10000" mimeType="text/plain" doc:name="VM"/>
         <logger message="Persisting Transaction" level="INFO" doc:name="Logger"/>
@@ -48,8 +48,8 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
                         <scripting:component doc:name="Groovy">
                             <scripting:script engine="Groovy">
                                 <scripting:text><![CDATA[StringWriter sw = new StringWriter();
-message.getExceptionPayload().getException().printStackTrace(new PrintWriter(sw));
-message.setOutboundProperty("stacktrace", sw.toString());]]></scripting:text>
+                                message.getExceptionPayload().getException().printStackTrace(new PrintWriter(sw));
+                                message.setOutboundProperty("stacktrace", sw.toString());]]></scripting:text>
                             </scripting:script>
                         </scripting:component>
                         <jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="errorMsg2" responseTimeout="10000" queryTimeout="-1" connector-ref="JDBCConnector" doc:name="Persist raw error message response">
@@ -65,6 +65,6 @@ message.setOutboundProperty("stacktrace", sw.toString());]]></scripting:text>
         <message-properties-transformer scope="session" doc:name="Set message uuid in session">
             <add-message-property key="uuid" value="#[groovy: return message.payload.getUuid();]"/>
         </message-properties-transformer>
-        <vm:outbound-endpoint exchange-pattern="request-response" path="transactionRouterQueue" responseTimeout="10000" mimeType="text/plain" doc:name="VM"/>
+        <vm:outbound-endpoint exchange-pattern="request-response" path="identifierUpdateEvents-Generic-NormalizationQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Send to identifierUpdateEvents Normalization Queue"/>
     </flow>
 </mule>
