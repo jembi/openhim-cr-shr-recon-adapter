@@ -13,11 +13,4 @@ http://www.mulesoft.org/schema/mule/management http://www.mulesoft.org/schema/mu
 	<http:connector name="NoSessionConnector" doc:name="HTTPNoSessionConnector">
 		<service-overrides sessionHandler="org.mule.session.NullSessionHandler" />
 	</http:connector>
-	<management:jmx-default-config port="${jmx.port}"
-		registerMx4jAdapter="true">
-		<management:credentials>
-			<spring:entry key="${jmx.username}" value="${jmx.password}" />
-		</management:credentials>
-	</management:jmx-default-config>
-	<management:jmx-mx4j-adaptor login="${jmx.username}" password="${jmx.password}" />
 </mule>
