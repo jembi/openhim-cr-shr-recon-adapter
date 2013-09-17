@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jembi.openhim</groupId>
 	<artifactId>openhim-cr-shr-recon-adapter</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.9.0</version>
 	<packaging>mule</packaging>
 	<name>OpenHIM CR-SHR Recon Adapter</name>
 	<description>OpenHIM is a open source Health Information Mediator built to facilitate interoperability between disparate Health Information Systems.</description>
