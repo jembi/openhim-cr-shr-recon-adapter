@@ -9,4 +9,4 @@ create table property (
 
 alter table property add index `name` (`name`);
 
-insert into property (`name`, `value`, `description`) values ('openEMPI_lastIdentifierUpdateEvents_poll', null, 'The date time value of the last OpenEMPI identifierUpdateEvents poll. Formatted as yyyy-MM-dd''T''HH:mm:ssZ');
+insert into property (`name`, `value`, `description`) values ('openEMPI_lastIdentifierUpdateEvents_poll', null, 'The date time value of the last OpenEMPI identifierUpdateEvents poll. Formatted as yyyy-MM-dd''T''HH:mm:ssXXX');

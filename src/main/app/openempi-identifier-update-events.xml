@@ -23,7 +23,7 @@ http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/ht
                     </jdbc:outbound-endpoint>
                     <scripting:component doc:name="Format result, default if null">
                         <scripting:script engine="Groovy">
-                            <scripting:text><![CDATA[sessionVars['iueDateNow'] = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date()); return (payload.size()==0 || payload.get(0).get("value")==null) ? sessionVars['iueDateNow'] : payload.get(0).get("value");]]></scripting:text>
+                            <scripting:text><![CDATA[java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX"); df.setTimeZone(java.util.TimeZone.getTimeZone("EST")); sessionVars['iueDateNow'] = df.format(new Date()); return (payload.size()==0 || payload.get(0).get("value")==null) ? sessionVars['iueDateNow'] : payload.get(0).get("value");]]></scripting:text>
                         </scripting:script>
                     </scripting:component>
                     <message-properties-transformer

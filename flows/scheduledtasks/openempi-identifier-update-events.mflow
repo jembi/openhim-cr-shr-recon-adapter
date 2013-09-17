@@ -8,7 +8,7 @@
             <property name="auxiliary;index" value="1"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="ba55d34c-8523-4644-ab03-6caa58412697">
+    <flow SubFlow="false" name="openempi-identifier-update-eventsFlow1" entity-id="e520d44e-787f-46f7-bcea-e7aa2b1f3072">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -66,20 +66,20 @@
             </pattern>
             <splitter index="6" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
                 <properties>
-                    <property-collection name="3de2adb3-5b7a-46bd-ac6b-c0eea36b5cdf">
-                        <property name="choice.otherwise" value="true"/>
-                        <property-collection name="choice.attributes"/>
-                    </property-collection>
-                    <property-collection name="9442655a-80fa-41c0-bd66-620ce111090d">
+                    <property-collection name="a0baadb2-847a-4a75-8abf-cc18574c79af">
                         <property name="choice.expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[groovy: return ${cr.pollForIdentifierUpdates};]"/>
                         </property-collection>
                     </property-collection>
+                    <property-collection name="d2629e8a-fe83-4aa7-93b5-8e7f38645f60">
+                        <property name="choice.otherwise" value="true"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
                 </properties>
                 <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#1">
-                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="9442655a-80fa-41c0-bd66-620ce111090d">
+                    <lane hadOnlyOneElement="false" index="8" isChoiceOtherwiseLane="false" entity-id="a0baadb2-847a-4a75-8abf-cc18574c79af">
                         <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="Get last poll timestamp" type="http://www.mulesoft.org/schema/mule/jdbc/endpoint" entity-id="Database#1">
                             <properties>
 <property name="exchange-pattern" value="one-way"/>
@@ -129,13 +129,13 @@
 <property name="auxiliary;index" value="11"/>
 <property name="auxiliary;index" value="11"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
-    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
+    <property name="text" value="java.text.DateFormat df = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssXXX&quot;); df.setTimeZone(java.util.TimeZone.getTimeZone(&quot;EST&quot;)); sessionVars['iueDateNow'] = df.format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
     <property name="engine" value="Groovy"/>
     <property name="auxiliary;wrapIn" value="12"/>
     <property name="auxiliary;index" value="12"/>
 </property-collection>
 <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
-    <property name="text" value="sessionVars['iueDateNow'] = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssZ&quot;).format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
+    <property name="text" value="java.text.DateFormat df = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ssXXX&quot;); df.setTimeZone(java.util.TimeZone.getTimeZone(&quot;EST&quot;)); sessionVars['iueDateNow'] = df.format(new Date()); return (payload.size()==0 || payload.get(0).get(&quot;value&quot;)==null) ? sessionVars['iueDateNow'] : payload.get(0).get(&quot;value&quot;);"/>
     <property name="engine" value="Groovy"/>
     <property name="auxiliary;wrapIn" value="12"/>
     <property name="auxiliary;index" value="12"/>
@@ -334,7 +334,7 @@
                             </properties>
                         </endpoint>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="true" entity-id="3de2adb3-5b7a-46bd-ac6b-c0eea36b5cdf">
+                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="true" entity-id="d2629e8a-fe83-4aa7-93b5-8e7f38645f60">
                         <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
                             <properties>
 <property name="message" value="OpenEMPI identifierUpdateEvents polling disabled"/>
