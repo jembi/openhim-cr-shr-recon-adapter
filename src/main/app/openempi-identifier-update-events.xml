@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:context="http://www.springframework.org/schema/context" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
-http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd 
-http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
-http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd 
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
-http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd ">
-	<context:property-placeholder xmlns:context="http://www.springframework.org/schema/context" location="classpath:cr-shr-recon.properties, classpath:cr-shr-recon-override.properties"></context:property-placeholder>
-    <flow name="openempi-identifier-update-eventsFlow1" doc:name="openempi-identifier-update-eventsFlow1">
-        <quartz:inbound-endpoint jobName="OpenEMPI-poller" repeatInterval="${cr.pollForIdentifierUpdates.period}" responseTimeout="10000" doc:name="Quartz" startDelay="${cr.pollForIdentifierUpdates.startDelay}">
-            <quartz:event-generator-job groupName="Poll-OpenEMPI" jobGroupName="Poll-OpenEMPI"/>
-        </quartz:inbound-endpoint>
-        <logger message="Running scheduled job: OpenEMPI identifierUpdateEvents poll" level="INFO" doc:name="Logger"/>
-        <choice doc:name="Choice">
-            <when expression="#[groovy: return ${cr.pollForIdentifierUpdates};]">
-                <processor-chain>
-                    <jdbc:outbound-endpoint exchange-pattern="request-response" queryKey="select_last_update" connector-ref="JDBCConnector" doc:name="Get last poll timestamp">
-                        <jdbc:query key="select_last_update" value="select value from property where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
-                    </jdbc:outbound-endpoint>
-                    <scripting:component doc:name="Format result, default if null">
+<mule xmlns:jdbc-ee="http://www.mulesoft.org/schema/mule/ee/jdbc" xmlns:https="http://www.mulesoft.org/schema/mule/https" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:context="http://www.springframework.org/schema/context" xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/ee/jdbc http://www.mulesoft.org/schema/mule/ee/jdbc/current/mule-jdbc-ee.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd">
+    <context:property-placeholder location="classpath:cr-shr-recon.properties, classpath:cr-shr-recon-override.properties"></context:property-placeholder>
+    <flow name="openempi-identifier-update-eventsFlow1" doc:name="openempi-identifier-update-eventsFlow1"> 
+        <quartz:inbound-endpoint jobName="OpenEMPI-poller" repeatInterval="${cr.pollForIdentifierUpdates.period}" responseTimeout="10000" doc:name="Quartz" startDelay="${cr.pollForIdentifierUpdates.startDelay}"> 
+            <quartz:event-generator-job groupName="Poll-OpenEMPI" jobGroupName="Poll-OpenEMPI"></quartz:event-generator-job>  
+        </quartz:inbound-endpoint>  
+        <logger message="Running scheduled job: OpenEMPI identifierUpdateEvents poll" level="INFO" doc:name="Logger"></logger>  
+        <choice doc:name="Choice"> 
+            <when expression="#[groovy: return ${cr.pollForIdentifierUpdates};]"> 
+                <processor-chain doc:name="Processor Chain"> 
+                    <jdbc-ee:outbound-endpoint exchange-pattern="request-response" queryKey="select_last_update" connector-ref="JDBCConnector" doc:name="Get last poll timestamp"> 
+                        <jdbc-ee:query key="select_last_update" value="select value from property where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"></jdbc-ee:query>  
+                    </jdbc-ee:outbound-endpoint>  
+                    <scripting:component doc:name="Format result, default if null"> 
                         <scripting:script engine="Groovy">
                             <scripting:text><![CDATA[java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX"); df.setTimeZone(java.util.TimeZone.getTimeZone("EST")); sessionVars['iueDateNow'] = df.format(new Date()); return (payload.size()==0 || payload.get(0).get("value")==null) ? sessionVars['iueDateNow'] : payload.get(0).get("value");]]></scripting:text>
-                        </scripting:script>
-                    </scripting:component>
-                    <message-properties-transformer
-            			doc:name="Message Properties">
-            			<add-message-property key="OPENEMPI_SESSION_KEY"
-            				value="${openempi.sessionkey}" />
-            		</message-properties-transformer>
-					<http:outbound-endpoint exchange-pattern="request-response"
-						host="${cr.host}" port="${cr.port}"
-						path="openempi-admin/openempi-ws-rest/person-query-resource/retrieveNotificationsByDate?date=#[message:payload]&amp;removeRecords=false"
-						mimeType="application/xml" doc:name="Fetch OpenEMPI identifier update events" method="GET"/>
-                    <message-properties-transformer scope="invocation" doc:name="Message Properties" overwrite="true">
-                        <add-message-property key="rest.request" value="ws/rest/v1/patient/identifier"/>
-                        <add-message-property key="rest.method" value="PUT"/>
-                    </message-properties-transformer>
-			        <custom-transformer class="org.jembi.rhea.transformers.RestfulHttpRequestTransformer" doc:name="RestfulHttpRequestTransformer"/>
-			        <logger message="Structured message: #[groovy: message.payload.toString();] Full Message: #[groovy: message.toString();]" level="INFO" doc:name="Log Structured Message"/>
-			        <vm:outbound-endpoint exchange-pattern="request-response" path="messagePersistanceQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Queue message"/>
-                    <jdbc:outbound-endpoint exchange-pattern="one-way" queryKey="update_last_update" connector-ref="JDBCConnector" doc:name="Update poll timestamp">
-                        <jdbc:query key="update_last_update" value="update property set value = #[header:session:iueDateNow] where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"/>
-                    </jdbc:outbound-endpoint>
-                </processor-chain>
-            </when>
-            <otherwise>
-                <processor-chain>
-                    <logger level="INFO" doc:name="Logger" message="OpenEMPI identifierUpdateEvents polling disabled"/>
-                </processor-chain>
-            </otherwise>
-        </choice>
+  
+                        </scripting:script>  
+                    </scripting:component>  
+                    <message-properties-transformer doc:name="Message Properties"> 
+                        <add-message-property key="OPENEMPI_SESSION_KEY" value="${openempi.sessionkey}"></add-message-property>  
+                    </message-properties-transformer>  
+                    <http:outbound-endpoint exchange-pattern="request-response" host="${cr.host}" port="${cr.port}" path="openempi-admin/openempi-ws-rest/person-query-resource/retrieveNotificationsByDate?date=#[message:payload]&amp;removeRecords=false" mimeType="application/xml" doc:name="Fetch OpenEMPI identifier update events" method="GET"></http:outbound-endpoint>  
+                    <message-properties-transformer scope="invocation" doc:name="Message Properties" overwrite="true"> 
+                        <add-message-property key="rest.request" value="ws/rest/v1/patient/identifier"></add-message-property>  
+                        <add-message-property key="rest.method" value="PUT"></add-message-property>  
+                    </message-properties-transformer>  
+                    <custom-transformer class="org.jembi.rhea.transformers.RestfulHttpRequestTransformer" doc:name="RestfulHttpRequestTransformer"></custom-transformer>  
+                    <logger message="Structured message: #[groovy: message.payload.toString();] Full Message: #[groovy: message.toString();]" level="INFO" doc:name="Log Structured Message"></logger>  
+                    <vm:outbound-endpoint exchange-pattern="request-response" path="messagePersistanceQueue" responseTimeout="10000" mimeType="text/plain" doc:name="Queue message"></vm:outbound-endpoint>  
+                    <jdbc-ee:outbound-endpoint exchange-pattern="one-way" queryKey="update_last_update" connector-ref="JDBCConnector" doc:name="Update poll timestamp"> 
+                        <jdbc-ee:query key="update_last_update" value="update property set value = #[header:session:iueDateNow] where name = 'openEMPI_lastIdentifierUpdateEvents_poll'"></jdbc-ee:query>  
+                    </jdbc-ee:outbound-endpoint>  
+                </processor-chain>  
+            </when>  
+            <otherwise> 
+                <processor-chain doc:name="Processor Chain"> 
+                    <logger level="INFO" doc:name="Logger" message="OpenEMPI identifierUpdateEvents polling disabled"></logger>  
+                </processor-chain>  
+            </otherwise>  
+        </choice>  
     </flow>
 </mule>

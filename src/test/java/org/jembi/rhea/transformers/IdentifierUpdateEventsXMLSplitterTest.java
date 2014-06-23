@@ -3,8 +3,16 @@ package org.jembi.rhea.transformers;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.io.StringReader;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jembi.Util;
 import org.jembi.rhea.RestfulHttpRequest;
 import org.junit.After;
@@ -12,6 +20,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class IdentifierUpdateEventsXMLSplitterTest {
 	
@@ -32,14 +44,13 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 	}
 
 	/***
-	 * Transformer should split the identifierUpdateEvent nodes into seperate xml documents
+	 * Transformer should split the identifierUpdateEvent nodes into separate xml documents
 	 */
 	@SuppressWarnings({ "rawtypes" })
 	@Test
 	public void testTransformMessageMuleMessageString() throws Exception {
 		when(reqMock.getBody()).thenReturn(Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents.xml"));
 		String expectedResult = Util.getResourceAsString("OpenEMPIIdentifierUpdateEvents_Split.xml");
-		
 		IdentifierUpdateEventsXMLSplitter splitter = new IdentifierUpdateEventsXMLSplitter();
 		Object result = splitter.transformMessage(msgMock, null);
 		assertNotNull(result);
@@ -83,4 +94,7 @@ public class IdentifierUpdateEventsXMLSplitterTest {
 			//expected
 		}
 	}
+	
+	
+	
 }
